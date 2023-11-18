@@ -1,8 +1,8 @@
 import { useState } from "react";
-import styles from "./App.module.css";
 import { useEffect } from "react";
 import { TodoCard } from "./components/TodoCard/todo-card";
-import { CreateTodo } from "./components/CreateTodo/create-todo";
+import { TodoForm } from "./components/TodoForm/todo-form";
+import styles from "./App.module.css";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -37,7 +37,7 @@ function App() {
     <>
       <div className={styles.todoAppContainer}>
         <div className={styles.createBtnContainer}>
-          <CreateTodo setTodos={setTodos} setReload={setReload} />
+          <TodoForm setTodos={setTodos} setReload={setReload} />
         </div>
         <div className={styles.todosContainer}>
           {todos?.map((todo) => {

@@ -6,6 +6,11 @@
   padding: 10px;
 }
 
+.errorMessage {
+  color: red;
+  font-size: 12px;
+}
+
 .checkMark {
   appearance: none;
   background-color: #eee;
@@ -35,4 +40,25 @@
   justify-content: center;
   align-items: center;
   color: #eee;
+}
+
+.createTodoBtn {
+  border: none;
+  padding: 20px 0 0 5px;
+  background-color: transparent;
+  color: #40ba50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.createTodoBtn:hover {
+  scale: 1.1;
+}
+
+.icon {
+  scale: 1.5;
 }

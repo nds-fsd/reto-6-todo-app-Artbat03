@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import styles from "./todo-card.module.css";
+import { useState } from "react";
 import { CardColorSelector } from "../CardColorSelector/card-color-selector";
 import { RemoveTodo } from "../RemoveTodo/remove-todo";
+import styles from "./todo-card.module.css";
 
 export const TodoCard = ({ id, text, color, done, setTodos, forceReload }) => {
   const [colorCard, setColorCard] = useState(color);
@@ -14,13 +14,6 @@ export const TodoCard = ({ id, text, color, done, setTodos, forceReload }) => {
     purple: styles.purpleCard,
     blue: styles.blueCard,
     grey: styles.greyCard
-  };
-
-  const handleOnMouseEnter = () => {
-    setShowColors((showColors = true));
-  };
-  const handleOnMouseLeave = () => {
-    setShowColors((showColors = false));
   };
 
   return (
