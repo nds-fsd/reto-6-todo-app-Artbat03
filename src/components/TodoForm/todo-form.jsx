@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import styles from "./todo-form.module.css";
 
 export const TodoForm = ({ setTodos, showForm, setShowForm }) => {
   const [responseError, setResponseError] = useState("");
@@ -57,13 +58,17 @@ export const TodoForm = ({ setTodos, showForm, setShowForm }) => {
       });
   };
 
-  if (responseError)
+  if (responseError) {
+    countDownTimer();
     return (
-      <div>
-        <h1>ERROR 404</h1>
-        <h3>Something went wrong!</h3>
-      </div>
+      !hideSuccess && (
+        <div>
+          <h1>ERROR</h1>
+          <h3>Something went wrong! We're redirecting...</h3>
+        </div>
+      )
     );
+  }
 
   if (success) {
     countDownTimer();
@@ -79,16 +84,18 @@ export const TodoForm = ({ setTodos, showForm, setShowForm }) => {
 
   return (
     showForm && (
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
         <label htmlFor="text">Text *: </label>
         <input
           type="text"
           placeholder="Enter task text..."
           {...register("text", { required: "Text is required" })}
         />
+        <br />
         {errors.text && <p>{errors.text.message}</p>}
         <label htmlFor="done">Done: </label>
         <input
+          className={styles.checkMark}
           type="checkbox"
           placeholder="Enter task text..."
           {...register("done")}

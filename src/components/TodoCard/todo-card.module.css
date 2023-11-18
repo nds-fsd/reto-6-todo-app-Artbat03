@@ -1,29 +1,31 @@
 .yellowCard {
   background-color: var(--yellow);
+  border: 1px solid var(--yellowBorder);
 }
 
 .greenCard {
   background-color: var(--green);
+  border: 1px solid var(--greenBorder);
 }
 
 .pinkCard {
   background-color: var(--pink);
+  border: 1px solid var(--pinkBorder);
 }
 
 .purpleCard {
   background-color: var(--purple);
+  border: 1px solid var(--purpleBorder);
 }
 
 .blueCard {
   background-color: var(--blue);
+  border: 1px solid var(--blueBorder);
 }
 
 .greyCard {
   background-color: var(--grey);
-}
-
-.darkGreyCard {
-  background-color: var(--darkGrey);
+  border: 1px solid var(--greyBorder);
 }
 
 .todoCard {

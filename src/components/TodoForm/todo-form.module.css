@@ -1,0 +1,38 @@
+.formContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.checkMark {
+  appearance: none;
+  background-color: #eee;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 0.4rem;
+  border: 1px solid #adb8c0;
+  cursor: pointer;
+}
+
+.checkMark:active,
+.checkMark:checked:active {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+    inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.checkMark:checked {
+  background-color: #13d313;
+  border: 1px solid #087208;
+  color: #99a1a7;
+}
+
+.checkMark:checked:after {
+  content: "\2714";
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #eee;
+}

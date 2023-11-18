@@ -4,48 +4,46 @@ import { CardColorSelector } from "../CardColorSelector/card-color-selector";
 import { RemoveTodo } from "../RemoveTodo/remove-todo";
 
 export const TodoCard = ({ id, text, color, done, setTodos, forceReload }) => {
-  const updateTodo = () => {
-    fetch(`http://localhost:3001/todos/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "Application/json"
-      },
-      body: {
-        text: text,
-        done: done,
-        color: color
-      }
-    })
-      .then((response) => {
-        if (response.ok) {
-          forceReload();
-          return response.json();
-        } else {
-          throw new Error(response.status);
-        }
-      })
-      .then((data) => {
-        setTodos(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const [colorCard, setColorCard] = useState(color);
+  let [showColors, setShowColors] = useState(false);
+
+  const className = {
+    yellow: styles.yellowCard,
+    green: styles.greenCard,
+    pink: styles.pinkCard,
+    purple: styles.purpleCard,
+    blue: styles.blueCard,
+    grey: styles.greyCard
+  };
+
+  const handleOnMouseEnter = () => {
+    setShowColors((showColors = true));
+  };
+  const handleOnMouseLeave = () => {
+    setShowColors((showColors = false));
   };
 
   return (
-    <div className={`${styles.todoCard} ${styles[color]}`}>
+    <div className={`${styles.todoCard} ${className[colorCard]}`}>
       <input
         type="checkbox"
         className={styles.checkMark}
         defaultChecked={done}
       ></input>
-      <textarea className={styles.todoText} defaultValue={text}></textarea>
+      <textarea
+        className={`${styles.todoText} ${className[colorCard]}`}
+        defaultValue={text}
+      ></textarea>
+
+      <RemoveTodo id={id} setTodos={setTodos} forceReload={forceReload} />
+
       <CardColorSelector
         id={id}
+        colorCard={colorCard}
+        setColorCard={setColorCard}
         setTodos={setTodos}
         forceReload={forceReload}
       />
-      <RemoveTodo id={id} setTodos={setTodos} forceReload={forceReload} />
     </div>
   );
 };

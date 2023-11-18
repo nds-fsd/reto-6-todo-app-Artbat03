@@ -1,4 +1,24 @@
+.todoAppContainer {
+  background: linear-gradient(
+    330deg,
+    rgba(116, 116, 116, 1) 0%,
+    rgba(249, 249, 249, 1) 100%
+  );
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.createBtnContainer {
+  align-self: flex-start;
+  height: 20vw;
+}
+
 .todosContainer {
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -7,6 +27,17 @@
 }
 
 @media (425px < width) {
+  .todoAppContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .createBtnContainer {
+    width: 20vw;
+  }
+
   .todosContainer {
     display: flex;
     flex-direction: row;

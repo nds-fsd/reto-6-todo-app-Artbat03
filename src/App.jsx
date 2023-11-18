@@ -35,23 +35,25 @@ function App() {
 
   return (
     <>
-      <div>
-        <CreateTodo setTodos={setTodos} setReload={setReload} />
-      </div>
-      <div className={styles.todosContainer}>
-        {todos?.map((todo) => {
-          return (
-            <TodoCard
-              key={todo.id}
-              id={todo.id}
-              text={todo.text}
-              done={todo.done}
-              color={todo.color}
-              setTodos={setTodos}
-              forceReload={forceReload}
-            />
-          );
-        })}
+      <div className={styles.todoAppContainer}>
+        <div className={styles.createBtnContainer}>
+          <CreateTodo setTodos={setTodos} setReload={setReload} />
+        </div>
+        <div className={styles.todosContainer}>
+          {todos?.map((todo) => {
+            return (
+              <TodoCard
+                key={todo.id}
+                id={todo.id}
+                text={todo.text}
+                done={todo.done}
+                color={todo.color}
+                setTodos={setTodos}
+                forceReload={forceReload}
+              />
+            );
+          })}
+        </div>
       </div>
     </>
   );
