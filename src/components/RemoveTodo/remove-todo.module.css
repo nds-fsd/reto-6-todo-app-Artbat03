@@ -1,0 +1,9 @@
+.eliminateBtn {
+  height: 2rem;
+  width: 2rem;
+  background-color: transparent;
+}
+.eliminateBtn:hover {
+  border: none;
+  scale: 1;
+}

@@ -1,8 +1,60 @@
+import { useState } from "react";
 import styles from "./App.module.css";
-import { TodoLogo, TodoAdd, TodoRemove, TodoEdit } from "./assets/todo-assets";
+import { useEffect } from "react";
+import { TodoCard } from "./components/TodoCard/todo-card";
+import { CreateTodo } from "./components/CreateTodo/create-todo";
 
 function App() {
-  return <></>;
+  const [todos, setTodos] = useState([]);
+  const [reload, setReload] = useState(false);
+
+  useEffect(() => {
+    getTodos();
+  }, [reload]);
+
+  const forceReload = () => {
+    setReload(!reload);
+  };
+
+  const getTodos = () => {
+    fetch("http://localhost:3001/todos")
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(response.status);
+        }
+      })
+      .then((data) => {
+        setTodos(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  return (
+    <>
+      <div>
+        <CreateTodo setTodos={setTodos} setReload={setReload} />
+      </div>
+      <div className={styles.todosContainer}>
+        {todos?.map((todo) => {
+          return (
+            <TodoCard
+              key={todo.id}
+              id={todo.id}
+              text={todo.text}
+              done={todo.done}
+              colorCard={todo.color}
+              setTodos={setTodos}
+              forceReload={forceReload}
+            />
+          );
+        })}
+      </div>
+    </>
+  );
 }
 
 export default App;
