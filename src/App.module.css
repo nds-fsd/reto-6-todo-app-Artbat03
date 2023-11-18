@@ -5,3 +5,14 @@
   justify-content: center;
   align-items: center;
 }
+
+@media (425px < width) {
+  .todosContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}

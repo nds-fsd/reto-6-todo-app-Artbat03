@@ -46,7 +46,7 @@ function App() {
               id={todo.id}
               text={todo.text}
               done={todo.done}
-              colorCard={todo.color}
+              color={todo.color}
               setTodos={setTodos}
               forceReload={forceReload}
             />

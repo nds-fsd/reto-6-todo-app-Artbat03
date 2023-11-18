@@ -3,14 +3,7 @@ import styles from "./todo-card.module.css";
 import { CardColorSelector } from "../CardColorSelector/card-color-selector";
 import { RemoveTodo } from "../RemoveTodo/remove-todo";
 
-export const TodoCard = ({
-  id,
-  text,
-  colorCard,
-  done,
-  setTodos,
-  forceReload
-}) => {
+export const TodoCard = ({ id, text, color, done, setTodos, forceReload }) => {
   const updateTodo = () => {
     fetch(`http://localhost:3001/todos/${id}`, {
       method: "PATCH",
@@ -20,7 +13,7 @@ export const TodoCard = ({
       body: {
         text: text,
         done: done,
-        color: colorCard
+        color: color
       }
     })
       .then((response) => {
@@ -40,14 +33,18 @@ export const TodoCard = ({
   };
 
   return (
-    <div className={`${styles.todoCard} ${styles[colorCard]}`}>
+    <div className={`${styles.todoCard} ${styles[color]}`}>
       <input
         type="checkbox"
         className={styles.checkMark}
         defaultChecked={done}
       ></input>
       <textarea className={styles.todoText} defaultValue={text}></textarea>
-      <CardColorSelector />
+      <CardColorSelector
+        id={id}
+        setTodos={setTodos}
+        forceReload={forceReload}
+      />
       <RemoveTodo id={id} setTodos={setTodos} forceReload={forceReload} />
     </div>
   );
