@@ -20,7 +20,6 @@ export const TodoForm = ({ setTodos, showForm, setShowForm }) => {
   let interval;
   const updateSecs = () => {
     seconds--;
-    console.log(seconds);
     if (seconds <= 0) {
       clearInterval(interval);
       hidePanel();
@@ -35,7 +34,6 @@ export const TodoForm = ({ setTodos, showForm, setShowForm }) => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     fetch("http://localhost:3001/todos", {
       method: "POST",
       headers: {
@@ -89,8 +87,6 @@ export const TodoForm = ({ setTodos, showForm, setShowForm }) => {
           {...register("text", { required: "Text is required" })}
         />
         {errors.text && <p>{errors.text.message}</p>}
-        <label htmlFor="fecha">Date: </label>
-        <input type="fecha" placeholder="DD/MM/YYYY" {...register("fecha")} />
         <label htmlFor="done">Done: </label>
         <input
           type="checkbox"
