@@ -100,7 +100,6 @@ export const TodoForm = ({ setTodos }) => {
       <input
         className={styles.checkMark}
         type="checkbox"
-        placeholder="Enter task text..."
         {...register("done")}
       />
       <button className={styles.createTodoBtn}>
