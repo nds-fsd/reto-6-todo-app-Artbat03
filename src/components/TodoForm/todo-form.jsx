@@ -92,7 +92,6 @@ export const TodoForm = ({ setTodos }) => {
       {errors.text && (
         <p className={styles.errorMessage}>{errors.text.message}</p>
       )}
-      <br />
       <label htmlFor="done">Done: </label>
       <input
         className={styles.checkMark}
@@ -105,7 +104,7 @@ export const TodoForm = ({ setTodos }) => {
           className={styles.icon}
           src="src/assets/CreateTodo.svg"
           alt="Create Todo"
-        />{" "}
+        />
         Create Todo
       </button>
     </form>

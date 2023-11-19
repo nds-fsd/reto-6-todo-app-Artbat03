@@ -3,11 +3,12 @@
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  padding: 10px;
+  gap: 0.5rem;
+  padding: 0.5rem;
 }
 
 .errorMessage {
-  color: red;
+  color: rgb(233, 39, 13);
   font-size: 12px;
 }
 
@@ -61,4 +62,10 @@
 
 .icon {
   scale: 1.5;
+}
+
+@media (450px < width) {
+  .formContainer {
+    gap: 1rem;
+  }
 }

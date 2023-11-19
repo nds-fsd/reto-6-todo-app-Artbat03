@@ -14,7 +14,7 @@
 
 .createBtnContainer {
   align-self: flex-start;
-  height: 20vw;
+  height: 60vw;
 }
 
 .todosContainer {
@@ -26,7 +26,7 @@
   align-items: center;
 }
 
-@media (425px < width) {
+@media (450px < width) {
   .todoAppContainer {
     display: flex;
     flex-direction: row;
@@ -35,7 +35,7 @@
   }
 
   .createBtnContainer {
-    width: 20vw;
+    width: 50vw;
   }
 
   .todosContainer {
@@ -45,5 +45,23 @@
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
+  }
+}
+
+@media (510px < width) {
+  .createBtnContainer {
+    width: 35vw;
+  }
+}
+
+@media (650px < width) {
+  .createBtnContainer {
+    width: 25vw;
+  }
+}
+
+@media (840px < width) {
+  .createBtnContainer {
+    width: 20vw;
   }
 }

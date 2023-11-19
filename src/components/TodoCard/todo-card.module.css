@@ -44,8 +44,8 @@
   height: 1.5rem;
   width: 1.5rem;
   border-radius: 0.4rem;
-  border: 1px solid #adb8c0;
   cursor: pointer;
+  border: 1px solid #adb8c0;
 }
 
 .checkMark:active,
@@ -76,6 +76,23 @@
   border: none;
 }
 
-.eliminateBtn {
-  border-radius: 0rem;
+.navTodoContainer {
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  top: 1rem;
+  width: 100%;
+}
+
+.changeColorBtn {
+  height: 2rem;
+  width: 2rem;
+  scale: 1.2;
+  border: none;
+  background-color: transparent;
+}
+.changeColorBtn:hover {
+  scale: 1.4;
+  transition: 0.5s;
+  transform: rotateY(360deg);
 }

@@ -11,10 +11,13 @@
 }
 
 .colorsContainer {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
+  top: 2rem;
+  left: 1.5rem;
 }
 
 .yellowBtn {
