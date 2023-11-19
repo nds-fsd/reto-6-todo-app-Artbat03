@@ -1,3 +1,18 @@
+.cardContainer {
+  width: 12rem;
+  height: 9rem;
+}
+
+.todoCard {
+  min-height: 5rem;
+  width: 12rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  border-radius: 0.5rem;
+}
+
 .yellowCard {
   background-color: var(--yellow);
   border: 1px solid var(--yellowBorder);
@@ -26,16 +41,6 @@
 .greyCard {
   background-color: var(--grey);
   border: 1px solid var(--greyBorder);
-}
-
-.todoCard {
-  min-height: 5rem;
-  width: 12rem;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-  border-radius: 0.5rem;
 }
 
 .checkMark {

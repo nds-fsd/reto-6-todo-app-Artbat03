@@ -14,7 +14,11 @@ export const TodoForm = ({ setTodos }) => {
   } = useForm();
 
   const hidePanel = () => {
-    setHideSuccess(!hideSuccess);
+    if (success) {
+      setHideSuccess(hideSuccess);
+    } else {
+      setHideSuccess(!hideSuccess);
+    }
   };
 
   let seconds = 5;

@@ -35,8 +35,8 @@ function App() {
 
   return (
     <>
-      <div className={styles.todoAppContainer}>
-        <div className={styles.createBtnContainer}>
+      <section className={styles.todoAppContainer}>
+        <div className={styles.createFormContainer}>
           <TodoForm setTodos={setTodos} setReload={setReload} />
         </div>
         <div className={styles.todosContainer}>
@@ -54,7 +54,7 @@ function App() {
             );
           })}
         </div>
-      </div>
+      </section>
     </>
   );
 }
