@@ -85,27 +85,85 @@
   align-self: center;
 }
 
-.navTodoContainer {
-  display: flex;
-  justify-content: space-around;
-  position: relative;
-  top: 1rem;
-  width: 100%;
-}
-
-.navTodoCardBtn {
-  height: 2rem;
-  width: 2rem;
-  scale: 1.2;
+.colorSelector {
   border: none;
-  background-color: transparent;
-}
-.navTodoCardBtn:hover {
-  scale: 1.4;
-  transition: 0.5s;
-  transform: rotateY(360deg);
+  border-radius: 1rem;
+  height: 1.2rem;
+  width: 1.2rem;
+  cursor: pointer;
 }
 
-.editContainer {
-  z-index: 10;
+.colorSelector:hover {
+  border: 1px solid #222;
+  scale: 1.1;
+}
+
+.colorsContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  top: 2rem;
+  left: 1.5rem;
+}
+
+.yellowBtn {
+  border: 1px solid var(--yellowBorder);
+  background-color: var(--yellow);
+}
+
+.yellowBtn:active {
+  border: 1px solid var(--yellowBorder);
+  scale: 1;
+}
+
+.greenBtn {
+  border: 1px solid var(--greenBorder);
+  background-color: var(--green);
+}
+
+.greenBtn:active {
+  border: 1px solid var(--greenBorder);
+  scale: 1;
+}
+
+.pinkBtn {
+  border: 1px solid var(--pinkBorder);
+  background-color: var(--pink);
+}
+
+.pinkBtn:active {
+  border: 1px solid var(--pinkBorder);
+  scale: 1;
+}
+
+.purpleBtn {
+  border: 1px solid var(--purpleBorder);
+  background-color: var(--purple);
+}
+
+.purpleBtn:active {
+  border: 1px solid var(--purpleBorder);
+  scale: 1;
+}
+
+.blueBtn {
+  border: 1px solid var(--blueBorder);
+  background-color: var(--blue);
+}
+
+.blueBtn:active {
+  border: 1px solid var(--blueBorder);
+  scale: 1;
+}
+
+.greyBtn {
+  border: 1px solid var(--greyBorder);
+  background-color: var(--grey);
+}
+
+.greyBtn:active {
+  border: 1px solid var(--greyBorder);
+  scale: 1;
 }

@@ -1,32 +1,52 @@
 import { useForm } from "react-hook-form";
-import { CardColorSelector } from "../CardColorSelector/card-color-selector";
-import { RemoveTodo } from "../RemoveTodo/remove-todo";
+import { NavTodoCard } from "../NavTodoCard/nav-todo-card";
 import styles from "./todo-card.module.css";
 import { useState } from "react";
 
-export const TodoCard = ({ id, text, color, done, setTodos, forceReload }) => {
-  const [editingModeActive, setEditingModeActive] = useState(false);
+export const TodoCard = ({
+  id,
+  text,
+  color,
+  done,
+  todos,
+  setTodos,
+  forceReload
+}) => {
   let [colorCard, setColorCard] = useState(color);
   const [responseError, setResponseError] = useState("");
   const [success, setSuccess] = useState(false);
+  const [isDone, setIsDone] = useState(done);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
 
-  const handleClickEditTodo = () => {
-    return setEditingModeActive(!editingModeActive);
+  const reloadEditedTask = (todoList, identifier) => {
+    setTodos((oldList) => {
+      oldList = [...todoList];
+      oldList.forEach((element) => {
+        switch (element) {
+          case text:
+            return [...oldList, (oldList[identifier].text = element.text)];
+          case color:
+            return [...oldList, (oldList[identifier].color = element.color)];
+          case done:
+            return [...oldList, (oldList[identifier].done = element.done)];
+        }
+        forceReload();
+      });
+    });
   };
 
-  const onSumbit = (data) => {
+  const onSubmit = (data) => {
     fetch(`http://localhost:3001/todos/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify({
+        text: data.text,
+        done: data.done,
+        color: data.color
+      })
     })
       .then((response) => {
         if (response.status !== 200) {
@@ -34,10 +54,11 @@ export const TodoCard = ({ id, text, color, done, setTodos, forceReload }) => {
         }
         return response.json();
       })
-      .then((data) => {
+      .then((responseData) => {
+        console.log(responseData);
         setSuccess(true);
-        setTodos(data);
-        forceReload();
+        setTodos(responseData);
+        reloadEditedTask(todos, id);
       })
       .catch((error) => {
         console.log(error);
@@ -46,6 +67,7 @@ export const TodoCard = ({ id, text, color, done, setTodos, forceReload }) => {
   };
 
   if (responseError) {
+    forceReload();
     return (
       <div>
         <h1>ERROR</h1>
@@ -55,6 +77,7 @@ export const TodoCard = ({ id, text, color, done, setTodos, forceReload }) => {
   }
 
   if (success) {
+    forceReload();
     return (
       <div>
         <h1>SUCCESS</h1>
@@ -73,86 +96,101 @@ export const TodoCard = ({ id, text, color, done, setTodos, forceReload }) => {
   };
 
   const changeColorCard = (color) => {
-    console.log(color);
     switch (color) {
       case "yellow":
-        setColorCard(color);
         classNames["yellow"];
         break;
       case "green":
-        setColorCard(color);
         classNames["green"];
         break;
       case "pink":
-        setColorCard(color);
         classNames["pink"];
         break;
       case "purple":
-        setColorCard(color);
         classNames["purple"];
         break;
       case "blue":
-        setColorCard(color);
         classNames["blue"];
         break;
       case "grey":
-        setColorCard(color);
         classNames["grey"];
         break;
     }
+    setColorCard(color);
+    setValue("color", color);
   };
 
   return (
     <>
       <div className={styles.cardContainer}>
-        <div className={`${styles.todoCard} ${classNames[colorCard]}`}>
-          <input
-            type="checkbox"
-            className={styles.checkMark}
-            defaultChecked={done}
-          ></input>
-          <textarea
-            className={`${styles.todoText} ${classNames[colorCard]}`}
-            defaultValue={text}
-          ></textarea>
-
-          <nav className={styles.navTodoContainer}>
-            <button className={styles.navTodoCardBtn}>
-              <img src="src/assets/TodoColor.svg" alt="Change Color" />
-            </button>
-            <button
-              className={styles.navTodoCardBtn}
-              onClick={handleClickEditTodo}
-            >
-              <img src="src/assets/EditTodo.svg" alt="Edit" />
-            </button>
-            <RemoveTodo id={id} changeColorCard={changeColorCard} />
-          </nav>
-
-          <CardColorSelector
-            id={id}
-            setColorCard={setColorCard}
-            onSumbit={onSumbit}
-          />
-        </div>
-      </div>
-      {editingModeActive && (
-        <div className={styles.editContainer}>
-          <form onSubmit={handleSubmit(onSumbit)}>
-            <label htmlFor="text">Text *:</label>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className={`${styles.todoCard} ${classNames[colorCard]}`}>
             <input
-              type="text"
-              placeholder="Enter task text..."
-              {...register("text", { required: "Text is required." })}
-            />
-            {errors.text && (
-              <p className={styles.errorMessage}>{errors.text.message}</p>
-            )}
+              type="checkbox"
+              className={styles.checkMark}
+              checked={isDone}
+              {...register("done")}
+              onClick={() => {
+                setIsDone(!isDone);
+                console.log("hi");
+              }}
+            ></input>
+            <textarea
+              className={`${styles.todoText} ${classNames[colorCard]}`}
+              defaultValue={text}
+              {...register("text")}
+            ></textarea>
 
-            <button className={styles.createTodoBtn}>Edit Todo</button>
-          </form>
-        </div>
-      )}
+            <NavTodoCard id={id} />
+
+            <div className={styles.colorsContainer}>
+              <button
+                className={`${styles.yellowBtn} ${styles.colorSelector}`}
+                onClick={() => {
+                  changeColorCard("yellow");
+                }}
+                {...register("color")}
+              ></button>
+              <button
+                className={`${styles.greenBtn} ${styles.colorSelector}`}
+                onClick={() => {
+                  changeColorCard("green");
+                }}
+                {...register("color")}
+              ></button>
+              <button
+                className={`${styles.pinkBtn} ${styles.colorSelector}`}
+                onClick={() => {
+                  changeColorCard("pink");
+                }}
+                {...register("color")}
+              ></button>
+              <button
+                className={`${styles.purpleBtn} ${styles.colorSelector}`}
+                onClick={() => {
+                  changeColorCard("purple");
+                }}
+                {...register("color")}
+              ></button>
+              <button
+                className={`${styles.blueBtn} ${styles.colorSelector}`}
+                onClick={() => {
+                  changeColorCard("blue");
+                }}
+                {...register("color")}
+              ></button>
+              <button
+                className={`${styles.greyBtn} ${styles.colorSelector}`}
+                onClick={() => {
+                  changeColorCard("grey");
+                }}
+                {...register("color")}
+              ></button>
+            </div>
+          </div>
+        </form>
+      </div>
+      {/* {editingModeActive && <div className={styles.editContainer}></div>} */}
     </>
   );
 };

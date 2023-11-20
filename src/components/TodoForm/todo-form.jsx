@@ -21,7 +21,7 @@ export const TodoForm = ({ setTodos }) => {
     }
   };
 
-  let seconds = 5;
+  let seconds = 1;
   let interval;
   const updateSecs = () => {
     seconds--;

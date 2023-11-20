@@ -48,6 +48,7 @@ function App() {
                 text={todo.text}
                 done={todo.done}
                 color={todo.color}
+                todos={todos}
                 setTodos={setTodos}
                 forceReload={forceReload}
               />
