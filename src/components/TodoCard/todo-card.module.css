@@ -1,10 +1,10 @@
 .cardContainer {
   width: 12rem;
-  height: 9rem;
+  height: 12rem;
 }
 
 .todoCard {
-  min-height: 5rem;
+  min-height: 6rem;
   width: 12rem;
   display: flex;
   justify-content: center;

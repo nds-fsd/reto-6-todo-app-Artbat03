@@ -16,6 +16,7 @@ export const TodoCard = ({
   const [responseError, setResponseError] = useState("");
   const [success, setSuccess] = useState(false);
   const [isDone, setIsDone] = useState(done);
+  const [showColors, setShowColors] = useState(false);
 
   const { register, handleSubmit, setValue } = useForm();
 
@@ -141,56 +142,61 @@ export const TodoCard = ({
               {...register("text")}
             ></textarea>
 
-            <NavTodoCard id={id} />
+            <NavTodoCard
+              id={id}
+              showColors={showColors}
+              setShowColors={setShowColors}
+            />
 
-            <div className={styles.colorsContainer}>
-              <button
-                className={`${styles.yellowBtn} ${styles.colorSelector}`}
-                onClick={() => {
-                  changeColorCard("yellow");
-                }}
-                {...register("color")}
-              ></button>
-              <button
-                className={`${styles.greenBtn} ${styles.colorSelector}`}
-                onClick={() => {
-                  changeColorCard("green");
-                }}
-                {...register("color")}
-              ></button>
-              <button
-                className={`${styles.pinkBtn} ${styles.colorSelector}`}
-                onClick={() => {
-                  changeColorCard("pink");
-                }}
-                {...register("color")}
-              ></button>
-              <button
-                className={`${styles.purpleBtn} ${styles.colorSelector}`}
-                onClick={() => {
-                  changeColorCard("purple");
-                }}
-                {...register("color")}
-              ></button>
-              <button
-                className={`${styles.blueBtn} ${styles.colorSelector}`}
-                onClick={() => {
-                  changeColorCard("blue");
-                }}
-                {...register("color")}
-              ></button>
-              <button
-                className={`${styles.greyBtn} ${styles.colorSelector}`}
-                onClick={() => {
-                  changeColorCard("grey");
-                }}
-                {...register("color")}
-              ></button>
-            </div>
+            {showColors && (
+              <div className={styles.colorsContainer}>
+                <button
+                  className={`${styles.yellowBtn} ${styles.colorSelector}`}
+                  onClick={() => {
+                    changeColorCard("yellow");
+                  }}
+                  {...register("color")}
+                ></button>
+                <button
+                  className={`${styles.greenBtn} ${styles.colorSelector}`}
+                  onClick={() => {
+                    changeColorCard("green");
+                  }}
+                  {...register("color")}
+                ></button>
+                <button
+                  className={`${styles.pinkBtn} ${styles.colorSelector}`}
+                  onClick={() => {
+                    changeColorCard("pink");
+                  }}
+                  {...register("color")}
+                ></button>
+                <button
+                  className={`${styles.purpleBtn} ${styles.colorSelector}`}
+                  onClick={() => {
+                    changeColorCard("purple");
+                  }}
+                  {...register("color")}
+                ></button>
+                <button
+                  className={`${styles.blueBtn} ${styles.colorSelector}`}
+                  onClick={() => {
+                    changeColorCard("blue");
+                  }}
+                  {...register("color")}
+                ></button>
+                <button
+                  className={`${styles.greyBtn} ${styles.colorSelector}`}
+                  onClick={() => {
+                    changeColorCard("grey");
+                  }}
+                  {...register("color")}
+                ></button>
+              </div>
+            )}
           </div>
         </form>
       </div>
-      {/* {editingModeActive && <div className={styles.editContainer}></div>} */}
     </>
   );
 };

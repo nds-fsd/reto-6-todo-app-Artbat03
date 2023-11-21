@@ -1,8 +1,7 @@
 .navTodoContainer {
   display: flex;
   justify-content: space-around;
-  position: relative;
-  top: 1rem;
+
   width: 100%;
 }
 
