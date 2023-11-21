@@ -1,6 +1,6 @@
 .cardContainer {
   width: 12rem;
-  height: 12rem;
+  height: 6rem;
 }
 
 .todoCard {
@@ -99,13 +99,13 @@
 }
 
 .colorsContainer {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
-  top: 2rem;
-  left: 1.5rem;
+  height: 30px;
+
+  width: 100%;
 }
 
 .yellowBtn {

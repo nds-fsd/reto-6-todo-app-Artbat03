@@ -37,7 +37,7 @@ function App() {
     <>
       <section className={styles.todoAppContainer}>
         <div className={styles.createFormContainer}>
-          <TodoForm setTodos={setTodos} setReload={setReload} />
+          <TodoForm setTodos={setTodos} />
         </div>
         <div className={styles.todosContainer}>
           {todos?.map((todo) => {

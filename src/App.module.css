@@ -18,10 +18,12 @@ body {
   padding: 1rem;
   height: 30vh;
   width: 100vw;
+  min-height: 14rem;
+  max-height: 14rem;
 }
 
 .todosContainer {
-  padding: 1rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -43,6 +45,7 @@ body {
     height: 100vh;
     border-top-right-radius: 20px;
     border-bottom-left-radius: 0;
+    max-height: none;
   }
 
   .todosContainer {
