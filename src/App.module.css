@@ -18,8 +18,8 @@ body {
   padding: 1rem;
   height: 30vh;
   width: 100vw;
-  min-height: 14rem;
-  max-height: 14rem;
+  min-height: 16rem;
+  max-height: 16rem;
 }
 
 .todosContainer {

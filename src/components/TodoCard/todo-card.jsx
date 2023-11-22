@@ -1,92 +1,20 @@
-import { useForm } from "react-hook-form";
-import { NavTodoCard } from "../NavTodoCard/nav-todo-card";
+// import { NavTodoCard } from "../NavTodoCard/nav-todo-card";
 import styles from "./todo-card.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  updateTextTodo,
+  updateDoneTodo,
+  updateColorTodo,
+  deleteTodo
+} from "../../_utils/api";
+import { DisplayColors } from "../DisplayColors/DisplayColors";
 
-export const TodoCard = ({
-  id,
-  text,
-  color,
-  done,
-  todos,
-  setTodos,
-  forceReload
-}) => {
+export const TodoCard = ({ id, text, done, color, forceReload }) => {
   let [colorCard, setColorCard] = useState(color);
-  let [isEnabled, setIsEnabled] = useState(false);
+  let [changedText, setChangedText] = useState(text);
 
-  const [responseError, setResponseError] = useState("");
-  const [success, setSuccess] = useState(false);
+  const [isDone, setIsDone] = useState(done);
   const [showColors, setShowColors] = useState(false);
-
-  const { register, handleSubmit, setValue } = useForm();
-
-  const reloadEditedTask = (todoList, identifier) => {
-    setTodos((oldList) => {
-      oldList = [...todoList];
-      oldList.forEach((element) => {
-        switch (element) {
-          case text:
-            return [...oldList, (oldList[identifier].text = element.text)];
-          case color:
-            return [...oldList, (oldList[identifier].color = element.color)];
-          case done:
-            return [...oldList, (oldList[identifier].done = element.done)];
-        }
-        forceReload();
-      });
-    });
-  };
-
-  const onSubmit = (data) => {
-    fetch(`http://localhost:3001/todos/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        text: data.text,
-        done: data.done,
-        color: data.color
-      })
-    })
-      .then((response) => {
-        if (response.status !== 200) {
-          setResponseError(true);
-        }
-        return response.json();
-      })
-      .then((responseData) => {
-        console.log(responseData);
-        setSuccess(true);
-        setTodos(responseData);
-        reloadEditedTask(todos, id);
-      })
-      .catch((error) => {
-        console.log(error);
-        setResponseError(true);
-      });
-  };
-
-  if (responseError) {
-    forceReload();
-    return (
-      <div>
-        <h1>ERROR</h1>
-        <h3>Unable to edit todo.</h3>
-      </div>
-    );
-  }
-
-  if (success) {
-    forceReload();
-    return (
-      <div>
-        <h1>SUCCESS</h1>
-        <h3>Task edited successfully!</h3>
-      </div>
-    );
-  }
 
   const classNames = {
     yellow: styles.yellowCard,
@@ -97,7 +25,29 @@ export const TodoCard = ({
     grey: styles.greyCard
   };
 
+  const handleChangeDone = () => {
+    setIsDone(!isDone);
+    updateDoneTodo(id, { done: !isDone });
+  };
+
+  const validateTodoText = (textToValidate) => {
+    const pattern = new RegExp(/^\s*$/);
+    return pattern.test(textToValidate);
+  };
+  useEffect(() => {}, []);
+  const handleChangeText = (event) => {
+    let inputInnerHTML = event.target.innerHTML;
+    let inputValue = event.target.value;
+    if (inputValue || validateTodoText(inputValue)) {
+      return;
+    }
+    inputInnerHTML = inputValue;
+    setChangedText(inputInnerHTML);
+    updateTextTodo(id, { text: inputInnerHTML });
+  };
+
   const changeColorCard = (color) => {
+    setColorCard(color);
     switch (color) {
       case "yellow":
         classNames["yellow"];
@@ -118,79 +68,65 @@ export const TodoCard = ({
         classNames["grey"];
         break;
     }
-    setColorCard(color);
-    setValue("color", color);
+    updateColorTodo(id, { color: color });
+  };
+
+  const handleDeleteTodo = () => {
+    deleteTodo(id)
+      .then(() => {
+        forceReload();
+      })
+      .catch((error) => {
+        console.error(`Error deleting todo: ${error}`);
+      });
+  };
+
+  const handleClickShowColors = () => {
+    setShowColors(!showColors);
   };
 
   return (
     <>
       <div className={styles.cardContainer}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form>
           <div className={`${styles.todoCard} ${classNames[colorCard]}`}>
             <input
               type="checkbox"
               className={styles.checkMark}
-              defaultChecked={done}
-              {...register("done")}
+              checked={isDone}
+              onChange={handleChangeDone}
             />
             <textarea
               className={`${styles.todoText} ${classNames[colorCard]}`}
-              defaultValue={text}
-              {...register("text")}
+              maxLength="44"
+              value={changedText}
+              onChange={(event) => {
+                forceReload();
+                console.log("adeu");
+                handleChangeText(event);
+              }}
             ></textarea>
-
-            <NavTodoCard
-              id={id}
-              isEnabled={isEnabled}
-              showColors={showColors}
-              setShowColors={setShowColors}
-            />
+            <div className={styles.navTodoContainer}>
+              <button
+                className={styles.navTodoCardBtn}
+                type="button"
+                onClick={handleClickShowColors}
+              >
+                <img src="src/assets/TodoColor.svg" alt="Change Color" />
+              </button>
+              <button
+                className={styles.navTodoCardBtn}
+                onClick={handleDeleteTodo}
+              >
+                <img src="src/assets/RemoveTodo.svg" alt="Remove todo" />
+              </button>
+            </div>
           </div>
           {showColors && (
-            <div className={styles.colorsContainer}>
-              <button
-                className={`${styles.yellowBtn} ${styles.colorSelector}`}
-                onClick={() => {
-                  changeColorCard("yellow");
-                }}
-                {...register("color")}
-              ></button>
-              <button
-                className={`${styles.greenBtn} ${styles.colorSelector}`}
-                onClick={() => {
-                  changeColorCard("green");
-                }}
-                {...register("color")}
-              ></button>
-              <button
-                className={`${styles.pinkBtn} ${styles.colorSelector}`}
-                onClick={() => {
-                  changeColorCard("pink");
-                }}
-                {...register("color")}
-              ></button>
-              <button
-                className={`${styles.purpleBtn} ${styles.colorSelector}`}
-                onClick={() => {
-                  changeColorCard("purple");
-                }}
-                {...register("color")}
-              ></button>
-              <button
-                className={`${styles.blueBtn} ${styles.colorSelector}`}
-                onClick={() => {
-                  changeColorCard("blue");
-                }}
-                {...register("color")}
-              ></button>
-              <button
-                className={`${styles.greyBtn} ${styles.colorSelector}`}
-                onClick={() => {
-                  changeColorCard("grey");
-                }}
-                {...register("color")}
-              ></button>
-            </div>
+            <DisplayColors
+              changeColorCard={changeColorCard}
+              handleClickShowColors={handleClickShowColors}
+            />
           )}
         </form>
       </div>

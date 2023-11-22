@@ -10,6 +10,7 @@ export const TodoForm = ({ setTodos }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm();
 
@@ -54,6 +55,7 @@ export const TodoForm = ({ setTodos }) => {
       .then((data) => {
         setSuccess(true);
         setTodos(data);
+        reset();
       })
       .catch((error) => {
         console.log(error);
@@ -87,6 +89,7 @@ export const TodoForm = ({ setTodos }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
+      <h2>CREATE A TASK</h2>
       <label htmlFor="text">Text *: </label>
       <input
         type="text"
