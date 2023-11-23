@@ -1,11 +1,6 @@
 import styles from "./todo-card.module.css";
 import { useState } from "react";
-import {
-  updateTextTodo,
-  updateDoneTodo,
-  updateColorTodo,
-  deleteTodo
-} from "../../_utils/api";
+import { deleteTodo, updatePartially } from "../../_utils/api";
 import { DisplayColors } from "../DisplayColors/DisplayColors";
 
 export const TodoCard = ({ id, text, done, color, forceReload }) => {
@@ -24,9 +19,11 @@ export const TodoCard = ({ id, text, done, color, forceReload }) => {
     grey: styles.greyCard
   };
 
-  const handleChangeDone = () => {
-    setIsDone(!isDone);
-    updateDoneTodo(id, { done: !isDone });
+  const handleChangeDone = (event) => {
+    let check = event.target.checked;
+
+    setIsDone(check);
+    updatePartially(id, { done: check });
   };
 
   const handleChangeText = (event) => {
@@ -36,33 +33,13 @@ export const TodoCard = ({ id, text, done, color, forceReload }) => {
       alert("Please enter a text.");
     } else {
       setChangedText({ inputValue, error: false });
-      updateTextTodo(id, { text: inputValue });
+      updatePartially(id, { text: inputValue });
     }
   };
 
   const changeColorCard = (color) => {
     setColorCard(color);
-    switch (color) {
-      case "yellow":
-        classNames["yellow"];
-        break;
-      case "green":
-        classNames["green"];
-        break;
-      case "pink":
-        classNames["pink"];
-        break;
-      case "purple":
-        classNames["purple"];
-        break;
-      case "blue":
-        classNames["blue"];
-        break;
-      case "grey":
-        classNames["grey"];
-        break;
-    }
-    updateColorTodo(id, { color: color });
+    updatePartially(id, { color: color });
   };
 
   const handleDeleteTodo = () => {

@@ -1,36 +1,12 @@
 const API_URL = "http://localhost:3001/todos";
 
-export const updateTextTodo = async (id, text) => {
+export const updatePartially = async (id, body) => {
   const response = await fetch(`${API_URL}/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(text)
-  });
-  const data = response.json();
-  return data;
-};
-
-export const updateDoneTodo = async (id, done) => {
-  const response = await fetch(`${API_URL}/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(done)
-  });
-  const data = response.json();
-  return data;
-};
-
-export const updateColorTodo = async (id, color) => {
-  const response = await fetch(`${API_URL}/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(color)
+    body: JSON.stringify(body)
   });
   const data = response.json();
   return data;
