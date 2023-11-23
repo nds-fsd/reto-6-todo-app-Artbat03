@@ -1,6 +1,6 @@
 // import { NavTodoCard } from "../NavTodoCard/nav-todo-card";
 import styles from "./todo-card.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   updateTextTodo,
   updateDoneTodo,
@@ -11,7 +11,7 @@ import { DisplayColors } from "../DisplayColors/DisplayColors";
 
 export const TodoCard = ({ id, text, done, color, forceReload }) => {
   let [colorCard, setColorCard] = useState(color);
-  let [changedText, setChangedText] = useState(text);
+  let [changedText, setChangedText] = useState({ error: false, value: text });
 
   const [isDone, setIsDone] = useState(done);
   const [showColors, setShowColors] = useState(false);
@@ -30,20 +30,15 @@ export const TodoCard = ({ id, text, done, color, forceReload }) => {
     updateDoneTodo(id, { done: !isDone });
   };
 
-  const validateTodoText = (textToValidate) => {
-    const pattern = new RegExp(/^\s*$/);
-    return pattern.test(textToValidate);
-  };
-  useEffect(() => {}, []);
   const handleChangeText = (event) => {
-    let inputInnerHTML = event.target.innerHTML;
-    let inputValue = event.target.value;
-    if (inputValue || validateTodoText(inputValue)) {
-      return;
+    let inputValue = event.target.value.replace(/[\r\n\v]+/g, "");
+    if (inputValue === "") {
+      setChangedText({ inputValue, error: true });
+      alert("Please enter a text.");
+    } else {
+      setChangedText({ inputValue, error: false });
+      updateTextTodo(id, { text: inputValue });
     }
-    inputInnerHTML = inputValue;
-    setChangedText(inputInnerHTML);
-    updateTextTodo(id, { text: inputInnerHTML });
   };
 
   const changeColorCard = (color) => {
@@ -99,13 +94,17 @@ export const TodoCard = ({ id, text, done, color, forceReload }) => {
             <textarea
               className={`${styles.todoText} ${classNames[colorCard]}`}
               maxLength="44"
-              value={changedText}
-              onChange={(event) => {
-                forceReload();
-                console.log("adeu");
-                handleChangeText(event);
-              }}
+              placeholder="Enter task text..."
+              defaultValue={text}
+              onBlur={handleChangeText}
+              required
             ></textarea>
+            {changedText.error && (
+              <p className={styles.errorMessage}>
+                <span>*</span>Please enter a text.
+              </p>
+            )}
+
             <div className={styles.navTodoContainer}>
               <button
                 className={styles.navTodoCardBtn}
