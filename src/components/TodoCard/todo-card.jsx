@@ -1,4 +1,3 @@
-// import { NavTodoCard } from "../NavTodoCard/nav-todo-card";
 import styles from "./todo-card.module.css";
 import { useState } from "react";
 import {
