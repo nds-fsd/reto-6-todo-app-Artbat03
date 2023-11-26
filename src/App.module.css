@@ -16,10 +16,7 @@ body {
   border-bottom-right-radius: 2rem;
   border-bottom-left-radius: 2rem;
   padding: 1rem;
-  height: 30vh;
   width: 100vw;
-  min-height: 18rem;
-  max-height: 18rem;
 }
 
 .todosContainer {

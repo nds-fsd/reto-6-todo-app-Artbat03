@@ -99,6 +99,14 @@ export const TodoForm = ({ setTodos }) => {
       {errors.text && (
         <p className={styles.errorMessage}>{errors.text.message}</p>
       )}
+      <label htmlFor="fecha">Due date: </label>
+      <input
+        type="date"
+        {...register("fecha", { required: "Due date is required." })}
+      />
+      {errors.fecha && (
+        <p className={styles.errorMessage}>{errors.fecha.message}</p>
+      )}
       <label htmlFor="done">Done: </label>
       <input
         className={styles.checkMark}

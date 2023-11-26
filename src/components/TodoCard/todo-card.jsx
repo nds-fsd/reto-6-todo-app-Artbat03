@@ -3,7 +3,7 @@ import { useState } from "react";
 import { deleteTodo, updatePartially } from "../../_utils/api";
 import { DisplayColors } from "../DisplayColors/DisplayColors";
 
-export const TodoCard = ({ id, text, done, color, forceReload }) => {
+export const TodoCard = ({ id, text, date, done, color, forceReload }) => {
   let [colorCard, setColorCard] = useState(color);
   let [changedText, setChangedText] = useState({ error: false, value: text });
 
@@ -67,6 +67,7 @@ export const TodoCard = ({ id, text, done, color, forceReload }) => {
               checked={isDone}
               onChange={handleChangeDone}
             />
+            <p className={styles.dueDate}>Task ends on {date}</p>
             <textarea
               className={`${styles.todoText} ${classNames[colorCard]}`}
               maxLength="44"

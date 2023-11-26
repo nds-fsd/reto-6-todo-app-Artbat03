@@ -46,6 +46,7 @@ function App() {
                 key={todo.id}
                 id={todo.id}
                 text={todo.text}
+                date={todo.fecha}
                 done={todo.done}
                 color={todo.color}
                 todos={todos}
