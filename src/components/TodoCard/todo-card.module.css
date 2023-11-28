@@ -1,0 +1,127 @@
+.cardContainer {
+  width: 12rem;
+  height: 7rem;
+}
+
+.todoCard {
+  min-height: 7rem;
+  width: 12rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  border-radius: 0.5rem;
+}
+
+.yellowCard {
+  background-color: var(--yellow);
+  border: 1px solid var(--yellowBorder);
+}
+
+.greenCard {
+  background-color: var(--green);
+  border: 1px solid var(--greenBorder);
+}
+
+.pinkCard {
+  background-color: var(--pink);
+  border: 1px solid var(--pinkBorder);
+}
+
+.purpleCard {
+  background-color: var(--purple);
+  border: 1px solid var(--purpleBorder);
+}
+
+.blueCard {
+  background-color: var(--blue);
+  border: 1px solid var(--blueBorder);
+}
+
+.greyCard {
+  background-color: var(--grey);
+  border: 1px solid var(--greyBorder);
+}
+
+.checkMark {
+  appearance: none;
+  background-color: #eee;
+  height: 1.8rem;
+  width: 1.8rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  border: 1px solid #adb8c0;
+  position: relative;
+  bottom: 1rem;
+  right: 0.8rem;
+}
+
+.checkMark:active,
+.checkMark:checked:active {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+    inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.checkMark:checked {
+  background-color: #13d313;
+  border: 1px solid #087208;
+  color: #99a1a7;
+}
+
+.checkMark:checked:after {
+  content: "\2714";
+  font-size: 1.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #eee;
+}
+
+.dueDate {
+  align-self: center;
+  font-size: 12px;
+  opacity: 0.5;
+  position: relative;
+  bottom: 1.5rem;
+}
+
+.todoText {
+  resize: none;
+  max-width: calc(100% - 1.5rem);
+  max-height: fit-content;
+  border: none;
+  align-self: center;
+  position: relative;
+  bottom: 0.8rem;
+}
+
+.errorMessage > span {
+  color: rgb(233, 39, 13);
+  font-size: 12px;
+}
+.errorMessage {
+  font-size: 12px;
+  padding-left: 1rem;
+}
+
+.navTodoContainer {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.navTodoCardBtn {
+  height: 2rem;
+  width: 2rem;
+  scale: 1.2;
+
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.navTodoCardBtn:hover {
+  scale: 1.4;
+  transition: 0.5s;
+  transform: rotateY(360deg);
+}
